@@ -1,0 +1,36 @@
+<div id="demoDiv">
+
+    <div class="row">
+
+        <div id="col-xs-6 col-sm-4 col-md-4 weatherDetailsMap">
+
+            <input id="pac-input"
+                   class="controls"
+                   type="text"
+                   placeholder="Enter a location">
+
+            <div id="map"></div>
+
+        </div>
+
+        <div id="weatherDetails">
+
+            All details in here..
+
+        </div>
+
+        <div class="col-xs-6 col-sm-4 col-md-4 eventList">
+            <ul ng-repeat="marker in ctrl.markers"
+                on-finish-render="ngRepeatFinished"
+                class="list-group">
+                <li class="list-group-item" ng-click="ctrl.openInfoWindow($event, marker)">
+                        <!--<img src="{{getSafeUrl.marker.imgUrl}}" class="logo">-->
+                    <div class="graphic"><canvas class="{{marker.imgUrl}}"></canvas></div>
+                    <p class="capitalize" id="names"><strong>{{marker.title.toLowerCase()}}</strong></p>
+                    <p>{{marker.startTime | cmdate:'MMMM dd, yyyy h:mm a'}}</p>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

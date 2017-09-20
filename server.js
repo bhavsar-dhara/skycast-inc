@@ -18,3 +18,6 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 app.listen(port, ipAddress);
 // local link ::: http://localhost:3000/
+
+// maps key =  AIzaSyAhIYpsO8Jdq1eBxaH6u7N7Tvej3UckyHE
+// forecast key = 6c4102c02fa3594783c54aab81209a8d

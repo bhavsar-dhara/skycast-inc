@@ -1,0 +1,255 @@
+/* D3 Demo CSS */
+body {
+    font: 14px sans-serif;
+}
+/*.axis path, .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axis path{
+    fill: none;
+    stroke: none;
+}
+.bar {
+    fill: steelblue;
+}*/
+
+.chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+}
+
+/* tabs CSS */
+#ext-content {
+    padding: 50px;
+    margin: 20px;
+    background-color: #FFF2E0;
+}
+
+/* Mongo DB CSS */
+table, th , td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* File Upload Demo CSS */
+input.form-control,
+textarea.form-control,
+select.form-control,
+button.form-control,
+#input-grp.input-group {
+    margin-bottom: 5px;
+}
+
+.class {
+    color: red;
+    font-size: 16px;
+}
+
+/* Google Map Tab CSS*/
+#map {
+    height: -webkit-calc(95% - 75px);
+    height: -moz-calc(95% - 75px);
+    height: calc(95% - 75px);
+    width: 30%;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    margin: 75px 0 0;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #000;
+    font-family: Roboto, serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: #FFF;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+#pac-input:focus {
+    border-color: #4D90FE;
+}
+
+.pac-container {
+    font-family: Roboto, serif;
+}
+
+#type-selector {
+    color: #FFF;
+    background-color: #4D90FE;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto, serif;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#target {
+    width: 345px;
+}
+
+#weatherDetails {
+    position: absolute;
+    height: -webkit-calc(100% - 75px);
+    height: -moz-calc(100% - 75px);
+    height: calc(100% - 75px);
+    width: 30%;
+    top: 75px;
+    left: 35%;
+}
+
+.eventList {
+    margin-top: 75px;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: -webkit-calc(100% - 75px);
+    height: -moz-calc(100% - 75px);
+    height: calc(100% - 75px);
+    overflow: auto;
+    width: 30%;
+}
+
+.eventList ul {
+    list-style: none;
+    padding: 0;
+}
+
+.eventList li {
+    padding: 10px;
+    background: rgba(121, 118, 155, 0.5);
+    -webkit-box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.75);
+    border-radius: 8px;
+}
+
+.eventList li img {
+    float: left;
+    margin: 0 15px 0 0;
+    max-height: 30%;
+}
+
+.eventList li p {
+    width: 100%;
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 1.5 ;
+    font-family: Roboto, serif;
+}
+
+.eventList li:hover {
+    background: #a0f3d9;
+    cursor: pointer;
+}
+
+.logo {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+p.capitalize {
+    text-transform: capitalize;
+}
+
+div.capitalize {
+    text-transform: capitalize;
+}
+
+.navbar-default {
+    max-height: 50px;
+}
+
+.navbar-default li>a:hover,.navbar-default li>a:focus {
+    background-color: #49bfff;
+}
+
+.navbar-default a {
+    color:#777;
+}
+
+.infoWindowContent {
+    font-size:  14px !important;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.floatLeft {
+    width: 75%;
+    float: left;
+}
+.floatRight {
+    width: 25%;
+    float: right;
+}
+.container {
+    overflow: hidden;
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 95px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+#darkSky {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+#demoDiv {
+    margin-left: 10px;
+    margin-right: 10px;
+}
