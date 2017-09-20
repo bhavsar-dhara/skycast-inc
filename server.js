@@ -13,10 +13,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var ipAddress = process.env.OPENSHIFT_NODEJS_IP;
-var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var port      = process.env.PORT || 3000;
 
-app.listen(port, ipAddress);
+app.listen(port, function () {
+    console.log('Server listening at port %d', port);
+});
 // local link ::: http://localhost:3000/
 
 // maps key =  AIzaSyAhIYpsO8Jdq1eBxaH6u7N7Tvej3UckyHE
