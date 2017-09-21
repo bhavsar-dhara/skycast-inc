@@ -104,7 +104,7 @@
                                 window.alert("Autocomplete's returned place contains no geometry");
                                 return;
                             }
-                            // console.log(place);
+                            console.log("place = " + place);
                             vm.location = place.name;
                             // console.log(vm.location);
                             vm.lat = place.geometry.location.lat;
@@ -167,7 +167,7 @@
         function searchWeatherDetails() {
             console.log("in search weather details");
 
-            getCityName(vm.lat, vm.lng);
+            // getCityName(vm.lat, vm.lng);
 
             // GoogleMapService.getCityName(vm.lat, vm.lng)
             //     .then(
@@ -187,13 +187,11 @@
                 .then(
                     function (response) {
                         data = response.data;
-                        console.log("data = " + JSON.stringify(data));
+                        // console.log("data = " + JSON.stringify(data));
 
                         readForecastData(data);
 
                         dropMarker(data);
-
-                        // skycons();
                     },
                     function (error) {
                         console.error("Something went wrong fetching weather details..." + error);
@@ -202,6 +200,9 @@
         }
 
         function readForecastData(data) {
+
+            console.log("readForecastData()");
+
             // Hold our days of the week for reference later.
             var days = [
                 'Sunday',
@@ -256,7 +257,7 @@
                 }
             }
 
-            $('.screen').append('<h3 class="city">' + address + '</h3>');
+            $('#weatherDetails').html('<h3 class="city">' + vm.location + '</h3>');
 
             // Loop through daily forecasts
             for(var i = 0, l = data.daily.data.length; i < l - 1; i++) {
@@ -270,7 +271,7 @@
                     temp = Math.round(data.hourly.data[i].temperature),
                     tempMax = Math.round(data.daily.data[i].temperatureMax);
 
-                // Append Markup for each Forecast of the 7 day week
+                // append Markup for each Forecast of the 7 day week
                 $("#forecast").append(
                     '<li class="shade-' + skyIcons + '"><div class="card-container"><div><div class="front card"><div>' +
                     "<div class='graphic'><canvas class=" + skyIcons + "></canvas></div>" +
@@ -283,7 +284,7 @@
                     '<div class="hourly' + ' ' + day + '"><b>24hr Forecast</b><ul class="list-reset"></ul></div></div></div></div></li>'
                 );
 
-                $('.screen').append('<ul class="list-reset" id="forecast"></ul>');
+                $('#weatherDetails').append('<ul class="list-reset" id="forecast"></ul>');
 
                 // Daily forecast report for each day of the week
                 switch (day) {
@@ -320,18 +321,6 @@
             }
         }
 
-        function updatedCityName() {
-            getCityName(vm.lat, vm.lng);
-            console.log("Addr = " + address);
-        }
-
-        function getPlaceName() {
-            if (vm.location !== null)
-                return vm.location;
-            else
-                return updatedCityName();
-        }
-
         function dropMarker(info) {
 
             var details = info.currently;
@@ -345,7 +334,7 @@
                 windSpeed: details.windSpeed,
                 imgSkyIcon: details.icon,
                 timezone: info.timezone,
-                placeName: getPlaceName()
+                placeName: vm.location
             });
 
             marker.content = '<div class="infoWindowContent">'

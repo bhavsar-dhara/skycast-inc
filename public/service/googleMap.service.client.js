@@ -30,14 +30,14 @@
         }
 
         function getCityName(lat, lng) {
-            console.log("lat = " + lat);
-            console.log("lng = " + lng);
+            // console.log("lat = " + lat);
+            // console.log("lng = " + lng);
             var url = urlReverseGeocode
                 .replace("API_KEY", key)
                 .replace("LAT", lat)
                 .replace("LNG", lng);
 
-            console.log("gmap url = " + url);
+            // console.log("gmap url = " + url);
             return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
         }
     }

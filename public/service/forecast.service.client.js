@@ -18,19 +18,19 @@
         return api;
 
         function searchForecast(latitude, longitude) {
-            console.log("latitude = " + latitude);
-            console.log("longitude = " + longitude);
+            // console.log("latitude = " + latitude);
+            // console.log("longitude = " + longitude);
             var url = urlForecast
                 .replace("API_KEY", key2)
                 .replace("LAT", latitude)
                 .replace("LONG", longitude);
-            console.log("url = " + url);
+            // console.log("url = " + url);
             return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
         }
 
         function searchTimeMachine(latitude, longitude, date) {
-            console.log("latitude = " + latitude);
-            console.log("longitude = " + longitude);
+            // console.log("latitude = " + latitude);
+            // console.log("longitude = " + longitude);
             console.log("date = " + date);
             var url = urlTimeMachine
                 .replace("API_KEY", key2)

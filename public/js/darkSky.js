@@ -1,8 +1,6 @@
 // to replace skycons icons in place of the icon
 function skycons() {
-    // TODO : recently added card to the list is not being detected.. Why?
 
-    console.log("in skycons function");
     var icons = new Skycons({
             "color" : "#FFFFFF"
             // ,
@@ -28,11 +26,8 @@ function skycons() {
             // canvas element as a class so let's hook into them.
             elements = document.getElementsByClassName(weatherType);
 
-        console.log("no of elements = " + elements.length);
-
         // loop through the elements now and set them up
         for (var e = 0; e < elements.length; e++) {
-            console.log("got weatherType : " + weatherType);
             icons.set(elements[e], weatherType);
         }
     }
