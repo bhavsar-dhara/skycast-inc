@@ -26,10 +26,7 @@
         var bos_lat = 42.3601;
         var bos_lng = -71.0589;
 
-        var count;
-        var country;
-        var state;
-        var city;
+        var address;
         var map;
         vm.lat = undefined;
         vm.lng = undefined;
@@ -68,7 +65,7 @@
 
                                 searchWeatherDetails();
                                 // console.log(navigator.geolocation);
-                                // getCityName(pos.lat, pos.lng);
+
 
                                 // infoWindowGeo.setPosition(pos);
                                 // infoWindowGeo.setContent('Location found.');
@@ -145,14 +142,54 @@
         }
         init();
 
+        function getCityName(lat, lng) {
+            console.log("lat = " + lat);
+            console.log("lng = " + lng);
+
+            var geocoder = new google.maps.Geocoder;
+            var latlong = new google.maps.LatLng(lat, lng);
+
+            geocoder.geocode(
+                {'location': latlong},
+                function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            address = results[0].formatted_address;
+                        } else {
+                            console.error('No results found');
+                        }
+                    } else {
+                        console.error('Reverse Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+        }
+
         function searchWeatherDetails() {
             console.log("in search weather details");
+
+            getCityName(vm.lat, vm.lng);
+
+            // GoogleMapService.getCityName(vm.lat, vm.lng)
+            //     .then(
+            //         function (response) {
+            //             data = response.data;
+            //             console.log("data = " + JSON.stringify(data));
+            //
+            //             // vm.cityName = ;
+            //         },
+            //         function (error) {
+            //             console.error("Something went wrong fetching reverse geocode city name..." + error);
+            //         }
+            //     );
+
             ForecastService
                 .searchForecast(vm.lat, vm.lng)
                 .then(
                     function (response) {
                         data = response.data;
                         console.log("data = " + JSON.stringify(data));
+
+                        readForecastData(data);
 
                         dropMarker(data);
 
@@ -164,6 +201,137 @@
                 )
         }
 
+        function readForecastData(data) {
+            // Hold our days of the week for reference later.
+            var days = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+
+            // Hold hourly values for each day of the week.
+            // This will store our 24 hour forecast results.
+            var sunday    = [],
+                monday    = [],
+                tuesday   = [],
+                wednesday = [],
+                thursday  = [],
+                friday    = [],
+                saturday  = [];
+
+            for(var j = 0, k = data.hourly.data.length; j < k; j++) {
+                var hourly_date    = new Date(data.hourly.data[j].time * 1000),
+                    hourly_day     = days[hourly_date.getDay()],
+                    hourly_temp    = data.hourly.data[j].temperature;
+
+                // push 24 hour forecast values to our empty days array
+                switch(hourly_day) {
+                    case 'Sunday':
+                        sunday.push(hourly_temp);
+                        break;
+                    case 'Monday':
+                        monday.push(hourly_temp);
+                        break;
+                    case 'Tuesday':
+                        tuesday.push(hourly_temp);
+                        break;
+                    case 'Wednesday':
+                        wednesday.push(hourly_temp);
+                        break;
+                    case 'Thursday':
+                        thursday.push(hourly_temp);
+                        break;
+                    case 'Friday':
+                        friday.push(hourly_temp);
+                        break;
+                    case 'Saturday':
+                        saturday.push(hourly_temp);
+                        break;
+                    default: console.log(hourly_date.toLocaleTimeString());
+                        break;
+                }
+            }
+
+            $('.screen').append('<h3 class="city">' + address + '</h3>');
+
+            // Loop through daily forecasts
+            for(var i = 0, l = data.daily.data.length; i < l - 1; i++) {
+
+                var date = new Date(data.daily.data[i].time * 1000),
+                    day = days[date.getDay()],
+                    skyIcons = data.daily.data[i].icon,
+                    time = data.daily.data[i].time,
+                    humidity = data.daily.data[i].humidity,
+                    summary = data.daily.data[i].summary,
+                    temp = Math.round(data.hourly.data[i].temperature),
+                    tempMax = Math.round(data.daily.data[i].temperatureMax);
+
+                // Append Markup for each Forecast of the 7 day week
+                $("#forecast").append(
+                    '<li class="shade-' + skyIcons + '"><div class="card-container"><div><div class="front card"><div>' +
+                    "<div class='graphic'><canvas class=" + skyIcons + "></canvas></div>" +
+                    "<div><b>Day</b>: " + date.toLocaleDateString() + "</div>" +
+                    "<div><b>Temperature</b>: " + temp + "</div>" +
+                    "<div><b>Max Temp.</b>: " + tempMax + "</div>" +
+                    "<div><b>Humidity</b>: " + humidity + "</div>" +
+                    '<p class="summary">' + summary + '</p>' +
+                    '</div></div><div class="back card">' +
+                    '<div class="hourly' + ' ' + day + '"><b>24hr Forecast</b><ul class="list-reset"></ul></div></div></div></div></li>'
+                );
+
+                $('.screen').append('<ul class="list-reset" id="forecast"></ul>');
+
+                // Daily forecast report for each day of the week
+                switch (day) {
+                    case 'Sunday':
+                        hourlyReport(sunday, days[0]);
+                        break;
+                    case 'Monday':
+                        hourlyReport(monday, days[1]);
+                        break;
+                    case 'Tuesday':
+                        hourlyReport(tuesday, days[2]);
+                        break;
+                    case 'Wednesday':
+                        hourlyReport(wednesday, days[3]);
+                        break;
+                    case 'Thursday':
+                        hourlyReport(thursday, days[4]);
+                        break;
+                    case 'Friday':
+                        hourlyReport(friday, days[5]);
+                        break;
+                    case 'Saturday':
+                        hourlyReport(saturday, days[6]);
+                        break;
+                }
+
+            }
+        }
+
+        // Hourly report method to reference in our daily loop
+        function hourlyReport(day, selector) {
+            for(var i = 0, l = day.length; i < l; i++) {
+                $("." + selector + " " + "ul").append('<li>' + Math.round(day[i]) + '</li>');
+            }
+        }
+
+        function updatedCityName() {
+            getCityName(vm.lat, vm.lng);
+            console.log("Addr = " + address);
+        }
+
+        function getPlaceName() {
+            if (vm.location !== null)
+                return vm.location;
+            else
+                return updatedCityName();
+        }
+
         function dropMarker(info) {
 
             var details = info.currently;
@@ -172,16 +340,17 @@
                 map: vm.map,
                 position: new google.maps.LatLng(info.latitude, info.longitude),
                 title: details.summary,
-                startTime: details.time,
-                venueName: details.temperature,
-                venueAddress: details.windSpeed,
-                imgUrl: details.icon,
-                eventId: info.timezone
+                time: new Date(details.time * 1000).toLocaleDateString(),
+                temperature: details.temperature,
+                windSpeed: details.windSpeed,
+                imgSkyIcon: details.icon,
+                timezone: info.timezone,
+                placeName: getPlaceName()
             });
 
             marker.content = '<div class="infoWindowContent">'
-                + marker.venueName
-                + '<p>' + marker.venueAddress + '</p>'
+                + 'Temperature :' + marker.temperature
+                + '<p>' + 'Wind Speed :' + marker.windSpeed + '</p>'
                 + '</div>';
 
             google.maps.event.addListener(marker, 'click', function(){

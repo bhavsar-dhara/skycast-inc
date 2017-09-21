@@ -13,9 +13,7 @@
 
         </div>
 
-        <div id="weatherDetails">
-
-            All details in here..
+        <div id="weatherDetails" class="screen">
 
         </div>
 
@@ -24,10 +22,10 @@
                 on-finish-render="ngRepeatFinished"
                 class="list-group">
                 <li class="list-group-item" ng-click="ctrl.openInfoWindow($event, marker)">
-                        <!--<img src="{{getSafeUrl.marker.imgUrl}}" class="logo">-->
-                    <div class="graphic"><canvas class="{{marker.imgUrl}}"></canvas></div>
+                    <p>{{marker.placeName}}</p>
+                    <div class="graphic"><canvas class="{{marker.imgSkyIcon}}"></canvas></div>
                     <p class="capitalize" id="names"><strong>{{marker.title.toLowerCase()}}</strong></p>
-                    <p>{{marker.startTime | cmdate:'MMMM dd, yyyy h:mm a'}}</p>
+                    <p>{{marker.time | cmdate:'MMMM dd, yyyy'}}</p>
                 </li>
             </ul>
         </div>

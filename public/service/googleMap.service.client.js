@@ -11,10 +11,12 @@
     // TODO - how to securing place key
     var key = "AIzaSyAhIYpsO8Jdq1eBxaH6u7N7Tvej3UckyHE";
     var urlBase = "//maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places";
+    var urlReverseGeocode = "//maps.googleapis.com/maps/api/geocode/json?key=API_KEY&latlng=LAT,LNG&sensor=true";
 
     function GoogleMapService($http) {
         var api = {
-            loadGMap: loadGMap
+            loadGMap: loadGMap,
+            getCityName: getCityName
         };
         return api;
 
@@ -24,6 +26,18 @@
                 .replace("API_KEY", key);
 
             // console.log("gmap url = " + url);
+            return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
+        }
+
+        function getCityName(lat, lng) {
+            console.log("lat = " + lat);
+            console.log("lng = " + lng);
+            var url = urlReverseGeocode
+                .replace("API_KEY", key)
+                .replace("LAT", lat)
+                .replace("LNG", lng);
+
+            console.log("gmap url = " + url);
             return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
         }
     }

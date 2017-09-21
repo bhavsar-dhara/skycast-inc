@@ -7,8 +7,8 @@
         .factory("ForecastService", ForecastService);
 
     var key2 = "6c4102c02fa3594783c54aab81209a8d";
-    var urlForecast = "https://api.darksky.net/forecast/API_KEY/LAT,LONG/";
-    var urlTimeMachine = "https://api.darksky.net/forecast/API_KEY/LAT,LONG,DATE_MS/";
+    var urlForecast = "https://api.darksky.net/forecast/API_KEY/LAT,LONG?extend=hourly/";
+    var urlTimeMachine = "https://api.darksky.net/forecast/API_KEY/LAT,LONG,DATE_MS?extend=hourly/";
 
     function ForecastService($http) {
         var api = {
