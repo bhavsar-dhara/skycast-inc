@@ -62,9 +62,9 @@ button.form-control,
 
 /* Google Map Tab CSS*/
 #map {
-    height: -webkit-calc(95% - 75px);
-    height: -moz-calc(95% - 75px);
-    height: calc(95% - 75px);
+    height: -webkit-calc(75% - 75px);
+    height: -moz-calc(75% - 75px);
+    height: calc(75% - 75px);
     width: 30%;
     position: absolute;
     top: 0;
@@ -120,6 +120,16 @@ button.form-control,
 }
 
 #weatherDetails {
+    position: absolute;
+    height: -webkit-calc(100% - 75px);
+    height: -moz-calc(100% - 75px);
+    height: calc(100% - 75px);
+    width: 30%;
+    top: 75px;
+    left: 35%;
+}
+
+#showGraph {
     position: absolute;
     height: -webkit-calc(100% - 75px);
     height: -moz-calc(100% - 75px);
@@ -293,4 +303,15 @@ div.tooltip {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+#viewHistoricData {
+    height: -webkit-calc(55% - 5px);
+    height: -moz-calc(55% - 5px);
+    height: calc(55% - 5px);
+    width: 30%;
+    position: absolute;
+    top: 85%;
+    left: 10px;
+    margin: 8px 0 0;
 }

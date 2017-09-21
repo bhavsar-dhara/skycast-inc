@@ -11,10 +11,19 @@
 
             <div id="map"></div>
 
+            <div id="viewHistoricData">
+                <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+                <button ng-click="viewHistoricData()">View Historic Data</button>
+            </div>
+
         </div>
 
         <div id="weatherDetails">
 
+        </div>
+
+        <div id="showGraph">
+            <nvd3 options="options" data="data"></nvd3>
         </div>
 
         <div class="col-xs-6 col-sm-4 col-md-4 eventList">

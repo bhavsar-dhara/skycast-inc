@@ -33,6 +33,29 @@
         vm.markers = [];
         var infoWindow = undefined;
 
+        this.myDate = new Date();
+
+        // Hold our days of the week for reference later.
+        var days = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ];
+
+        // Hold hourly values for each day of the week.
+        // This will store our 24 hour forecast results.
+        var sunday    = [],
+            monday    = [],
+            tuesday   = [],
+            wednesday = [],
+            thursday  = [],
+            friday    = [],
+            saturday  = [];
+
         function init() {
             GoogleMapService
                 .loadGMap()
@@ -189,6 +212,8 @@
                         data = response.data;
                         // console.log("data = " + JSON.stringify(data));
 
+                        $('#weatherDetails').html('<h3 class="city">' + vm.location + '</h3>');
+
                         readForecastData(data);
 
                         dropMarker(data);
@@ -202,27 +227,6 @@
         function readForecastData(data) {
 
             console.log("readForecastData()");
-
-            // Hold our days of the week for reference later.
-            var days = [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-            ];
-
-            // Hold hourly values for each day of the week.
-            // This will store our 24 hour forecast results.
-            var sunday    = [],
-                monday    = [],
-                tuesday   = [],
-                wednesday = [],
-                thursday  = [],
-                friday    = [],
-                saturday  = [];
 
             for(var j = 0, k = data.hourly.data.length; j < k; j++) {
                 var hourly_date    = new Date(data.hourly.data[j].time * 1000),
@@ -257,7 +261,12 @@
                 }
             }
 
-            $('#weatherDetails').html('<h3 class="city">' + vm.location + '</h3>');
+            // Hourly report method to reference in our daily loop
+            function hourlyReport(day, selector) {
+                for(var i = 0, l = day.length; i < l; i++) {
+                    $("." + selector + " " + "ul").append('<li>' + Math.round(day[i]) + '</li>');
+                }
+            }
 
             // Loop through daily forecasts
             for(var i = 0, l = data.daily.data.length; i < l - 1; i++) {
@@ -273,7 +282,9 @@
 
                 // append Markup for each Forecast of the 7 day week
                 $("#forecast").append(
-                    '<li class="shade-' + skyIcons + '"><div class="card-container"><div><div class="front card"><div>' +
+                    '<li class="shade-' + skyIcons + '">' +
+                    '<div class="card-container">' +
+                    '<div><div class="front card"><div>' +
                     "<div class='graphic'><canvas class=" + skyIcons + "></canvas></div>" +
                     "<div><b>Day</b>: " + date.toLocaleDateString() + "</div>" +
                     "<div><b>Temperature</b>: " + temp + "</div>" +
@@ -281,7 +292,9 @@
                     "<div><b>Humidity</b>: " + humidity + "</div>" +
                     '<p class="summary">' + summary + '</p>' +
                     '</div></div><div class="back card">' +
-                    '<div class="hourly' + ' ' + day + '"><b>24hr Forecast</b><ul class="list-reset"></ul></div></div></div></div></li>'
+                    '<div class="hourly' + ' ' + day + '">' +
+                    '<b>24hr Forecast</b>' +
+                    '<ul class="list-reset"></ul></div></div></div></div></li>'
                 );
 
                 $('#weatherDetails').append('<ul class="list-reset" id="forecast"></ul>');
@@ -311,13 +324,6 @@
                         break;
                 }
 
-            }
-        }
-
-        // Hourly report method to reference in our daily loop
-        function hourlyReport(day, selector) {
-            for(var i = 0, l = day.length; i < l; i++) {
-                $("." + selector + " " + "ul").append('<li>' + Math.round(day[i]) + '</li>');
             }
         }
 
@@ -368,5 +374,174 @@
             }
         }
 
+        $scope.viewHistoricData = function () {
+
+            if($scope.myDate !== undefined) {
+                var pastDate = Date.parse($scope.myDate.toDateString()) / 1000;
+
+                $scope.options = {
+                    chart: {
+                        type: 'lineChart',
+                        height: 450,
+                        margin: {
+                            top: 20,
+                            right: 20,
+                            bottom: 40,
+                            left: 55
+                        },
+                        x: function (d) {
+                            return d.x;
+                        },
+                        y: function (d) {
+                            return d.y;
+                        },
+                        useInteractiveGuideline: true,
+                        dispatch: {
+                            stateChange: function (e) {
+                                console.log("stateChange");
+                            },
+                            changeState: function (e) {
+                                console.log("changeState");
+                            },
+                            tooltipShow: function (e) {
+                                console.log("tooltipShow");
+                            },
+                            tooltipHide: function (e) {
+                                console.log("tooltipHide");
+                            }
+                        },
+                        xAxis: {
+                            axisLabel: 'Time (hr)'
+                        },
+                        yAxis: {
+                            axisLabel: 'Temperature (F)',
+                            tickFormat: function(d){
+                                return d3.format('.02f')(d);
+                            },
+                            axisLabelDistance: -10
+                        },
+                        callback: function (chart) {
+                            console.log("!!! lineChart callback !!!");
+                            // chart.update();
+                        }
+                    },
+                    title: {
+                        enable: true,
+                        text: 'Weather History Graph of ' + vm.location
+                    },
+                    subtitle: {
+                        enable: true,
+                        text: 'Temperature in Fahrenheit',
+                        css: {
+                            'text-align': 'center',
+                            'margin': '10px 13px 0px 7px'
+                        }
+                    },
+                    caption: {
+                        enable: true,
+                        html: '<b>Figure 1.</b> Temperature Graph',
+                        css: {
+                            'text-align': 'justify',
+                            'margin': '10px 13px 0px 7px'
+                        }
+                    }
+                };
+
+                $scope.data = getData();
+
+                function getData() {
+                    ForecastService
+                        .searchTimeMachine(vm.lat, vm.lng, pastDate)
+                        .then(
+                            function (response) {
+                                data = response.data;
+                                // console.log("data = " + JSON.stringify(data));
+
+                                $('#weatherDetails').html('');
+
+                                for (var j = 0, k = data.hourly.data.length; j < k; j++) {
+                                    var hourly_date = new Date(data.hourly.data[j].time * 1000),
+                                        hourly_day = days[hourly_date.getDay()],
+                                        hourly_temp = data.hourly.data[j].temperature;
+
+                                    // push 24 hour forecast values to our empty days array
+                                    switch (hourly_day) {
+                                        case 'Sunday':
+                                            sunday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Monday':
+                                            monday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Tuesday':
+                                            tuesday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Wednesday':
+                                            wednesday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Thursday':
+                                            thursday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Friday':
+                                            friday.push({x: j, y: hourly_temp});
+                                            break;
+                                        case 'Saturday':
+                                            saturday.push({x: j, y: hourly_temp});
+                                            break;
+                                        default:
+                                            console.log(hourly_date.toLocaleTimeString());
+                                            break;
+                                    }
+                                }
+
+                                console.log("saturday = " + saturday);
+
+                                return [
+                                    {
+                                        values: sunday,      //values - represents the array of {x,y} data points
+                                        key: 'Sun Temp', //key  - the name of the series.
+                                        color: '#ff7f0e'  //color - optional: choose your own line color.
+                                    },
+                                    {
+                                        values: monday,
+                                        key: 'Mon Temp',
+                                        color: '#2ca02c'
+                                    },
+                                    {
+                                        values: tuesday,
+                                        key: 'Tues Temp',
+                                        color: '#7777ff'
+                                    },
+                                    {
+                                        values: wednesday,      //values - represents the array of {x,y} data points
+                                        key: 'Wed Temp', //key  - the name of the series.
+                                        color: '#ff2238'  //color - optional: choose your own line color.
+                                    },
+                                    {
+                                        values: thursday,
+                                        key: 'Thurs Temp',
+                                        color: '#00a08f'
+                                    },
+                                    {
+                                        values: friday,
+                                        key: 'Fri Temp',
+                                        color: '#cd05ff'
+                                    },
+                                    {
+                                        values: saturday,      //values - represents the array of {x,y} data points
+                                        key: 'Sat Temp', //key  - the name of the series.
+                                        color: '#ffd300'  //color - optional: choose your own line color.
+                                    }
+                                ];
+                            },
+                            function (error) {
+                                console.error("Something went wrong fetching weather details..." + error);
+                            }
+                        )
+                }
+
+            } else {
+                alert("Please select a date");
+            }
+        }
     }
 })();
