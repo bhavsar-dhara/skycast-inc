@@ -1,19 +1,7 @@
-/* D3 Demo CSS */
+/* Skycast Inc Demo CSS */
 body {
     font: 14px sans-serif;
 }
-/*.axis path, .axis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-}
-.axis path{
-    fill: none;
-    stroke: none;
-}
-.bar {
-    fill: steelblue;
-}*/
 
 .chart div {
     font: 10px sans-serif;
@@ -29,35 +17,6 @@ body {
     padding: 50px;
     margin: 20px;
     background-color: #FFF2E0;
-}
-
-/* Mongo DB CSS */
-table, th , td {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-}
-
-table tr:nth-child(even) {
-    background-color: #ffffff;
-}
-
-/* File Upload Demo CSS */
-input.form-control,
-textarea.form-control,
-select.form-control,
-button.form-control,
-#input-grp.input-group {
-    margin-bottom: 5px;
-}
-
-.class {
-    color: red;
-    font-size: 16px;
 }
 
 /* Google Map Tab CSS*/

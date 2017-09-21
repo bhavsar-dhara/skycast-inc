@@ -106,7 +106,7 @@
                                 window.alert("Autocomplete's returned place contains no geometry");
                                 return;
                             }
-                            console.log("place = " + place);
+                            // console.log("place = " + place);
                             vm.location = place.name;
                             // console.log(vm.location);
                             vm.lat = place.geometry.location.lat;
@@ -204,6 +204,9 @@
         }
 
         function readForecastData(data) {
+
+            // $('#showGraph').html('');
+            // $scope.myDate = new Date();
 
             // console.log("readForecastData()");
 
