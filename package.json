@@ -16,10 +16,13 @@
   "author": "Dhara Bhavsar",
   "license": "ISC",
   "dependencies": {
+    "@types/d3": "^4.10.0",
     "@types/googlemaps": "^3.26.20",
     "angular-nvd3": "^1.0.9",
     "body-parser": "^1.18.1",
     "cookie-parser": "^1.4.3",
-    "express": "^4.15.4"
+    "d3": "^3.5.17",
+    "express": "^4.15.4",
+    "nvd3": "^1.8.6"
   }
 }

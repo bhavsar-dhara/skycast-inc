@@ -35,27 +35,6 @@
 
         this.myDate = new Date();
 
-        // Hold our days of the week for reference later.
-        var days = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ];
-
-        // Hold hourly values for each day of the week.
-        // This will store our 24 hour forecast results.
-        var sunday    = [],
-            monday    = [],
-            tuesday   = [],
-            wednesday = [],
-            thursday  = [],
-            friday    = [],
-            saturday  = [];
-
         function init() {
             GoogleMapService
                 .loadGMap()
@@ -188,7 +167,7 @@
         }
 
         function searchWeatherDetails() {
-            console.log("in search weather details");
+            // console.log("in search weather details");
 
             // getCityName(vm.lat, vm.lng);
 
@@ -226,7 +205,28 @@
 
         function readForecastData(data) {
 
-            console.log("readForecastData()");
+            // console.log("readForecastData()");
+
+            // Hold our days of the week for reference later.
+            var days = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+
+            // Hold hourly values for each day of the week.
+            // This will store our 24 hour forecast results.
+            var sunday    = [],
+                monday    = [],
+                tuesday   = [],
+                wednesday = [],
+                thursday  = [],
+                friday    = [],
+                saturday  = [];
 
             for(var j = 0, k = data.hourly.data.length; j < k; j++) {
                 var hourly_date    = new Date(data.hourly.data[j].time * 1000),
@@ -379,6 +379,27 @@
             if($scope.myDate !== undefined) {
                 var pastDate = Date.parse($scope.myDate.toDateString()) / 1000;
 
+                // Hold our days of the week for reference later.
+                var days = [
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                ];
+
+                // Hold hourly values for each day of the week.
+                // This will store our 24 hour forecast results.
+                var sunday    = [],
+                    monday    = [],
+                    tuesday   = [],
+                    wednesday = [],
+                    thursday  = [],
+                    friday    = [],
+                    saturday  = [];
+
                 $scope.options = {
                     chart: {
                         type: 'lineChart',
@@ -448,6 +469,9 @@
                 };
 
                 $scope.data = getData();
+                // var resultData = [];
+
+                // $scope.$apply();
 
                 function getData() {
                     ForecastService
@@ -493,7 +517,7 @@
                                     }
                                 }
 
-                                console.log("saturday = " + saturday);
+                                // console.log("saturday = " + saturday);
 
                                 return [
                                     {
