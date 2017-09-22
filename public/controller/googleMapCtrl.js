@@ -141,6 +141,28 @@
                         };
                     }
                 );
+
+            // $(function() {
+            //
+            //     var start = moment().subtract(6, 'days');
+            //     var end = moment();
+            //
+            //     function cb(start, end) {
+            //         console.log("New date range selected: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            //         $('#reportrange span').html(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+            //     }
+            //
+            //     $('#reportrange').daterangepicker({
+            //         startDate: start,
+            //         endDate: end,
+            //         "dateLimit": {
+            //             "days": 6
+            //         }
+            //     }, cb);
+            //
+            //     cb(start, end);
+            //
+            // });
         }
         init();
 
@@ -379,10 +401,9 @@
 
         $scope.viewHistoricData = function () {
 
-            $('#weatherDetails').html('');
-
             if($scope.myDate !== undefined) {
-                var pastDate = Date.parse($scope.myDate.toDateString()) / 1000;
+
+                $('#weatherDetails').html('');
 
                 // Hold our days of the week for reference later.
                 var days = [
@@ -479,7 +500,15 @@
 
                 // $scope.$apply();
 
+                var date = $scope.myDate, pastDate, momentDate;
+
                 // function getData() {
+                for (var i = 0; i < 7; i++)
+                {
+                    momentDate = moment(date).add(i, 'days');
+                    console.log("moment date == " + momentDate);
+                    pastDate = momentDate / 1000;
+
                     ForecastService
                         .searchTimeMachine(vm.lat, vm.lng, pastDate)
                         .then(
@@ -527,48 +556,53 @@
 
                                 console.log("saturday = " + JSON.stringify(saturday));
 
-                                $scope.data = [
-                                    {
-                                        values: sunday,      //values - represents the array of {x,y} data points
-                                        key: 'Sun Temp', //key  - the name of the series.
-                                        color: '#ff7f0e'  //color - optional: choose your own line color.
-                                    },
-                                    {
-                                        values: monday,
-                                        key: 'Mon Temp',
-                                        color: '#2ca02c'
-                                    },
-                                    {
-                                        values: tuesday,
-                                        key: 'Tues Temp',
-                                        color: '#7777ff'
-                                    },
-                                    {
-                                        values: wednesday,      //values - represents the array of {x,y} data points
-                                        key: 'Wed Temp', //key  - the name of the series.
-                                        color: '#ff2238'  //color - optional: choose your own line color.
-                                    },
-                                    {
-                                        values: thursday,
-                                        key: 'Thurs Temp',
-                                        color: '#00a08f'
-                                    },
-                                    {
-                                        values: friday,
-                                        key: 'Fri Temp',
-                                        color: '#cd05ff'
-                                    },
-                                    {
-                                        values: saturday,      //values - represents the array of {x,y} data points
-                                        key: 'Sat Temp', //key  - the name of the series.
-                                        color: '#ffd300'  //color - optional: choose your own line color.
-                                    }
-                                ];
+                                if (sunday !== null && monday !== null && tuesday !== null &&
+                                    wednesday !== null && thursday !== null &&
+                                    friday !== null && saturday !== null) {
+                                    $scope.data = [
+                                        {
+                                            values: sunday,      //values - represents the array of {x,y} data points
+                                            key: 'Sun Temp', //key  - the name of the series.
+                                            color: '#ff7f0e'  //color - optional: choose your own line color.
+                                        },
+                                        {
+                                            values: monday,
+                                            key: 'Mon Temp',
+                                            color: '#2ca02c'
+                                        },
+                                        {
+                                            values: tuesday,
+                                            key: 'Tues Temp',
+                                            color: '#7777ff'
+                                        },
+                                        {
+                                            values: wednesday,      //values - represents the array of {x,y} data points
+                                            key: 'Wed Temp', //key  - the name of the series.
+                                            color: '#ff2238'  //color - optional: choose your own line color.
+                                        },
+                                        {
+                                            values: thursday,
+                                            key: 'Thurs Temp',
+                                            color: '#00a08f'
+                                        },
+                                        {
+                                            values: friday,
+                                            key: 'Fri Temp',
+                                            color: '#cd05ff'
+                                        },
+                                        {
+                                            values: saturday,      //values - represents the array of {x,y} data points
+                                            key: 'Sat Temp', //key  - the name of the series.
+                                            color: '#ffd300'  //color - optional: choose your own line color.
+                                        }
+                                    ];
+                                }
                             },
                             function (error) {
                                 console.error("Something went wrong fetching weather details..." + error);
                             }
                         )
+                }
                 // }
 
             } else {
