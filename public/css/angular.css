@@ -94,9 +94,9 @@ body {
     position: absolute;
     top: 0;
     right: 10px;
-    height: -webkit-calc(100% - 75px);
-    height: -moz-calc(100% - 75px);
-    height: calc(100% - 75px);
+    height: -webkit-calc(80% - 75px);
+    height: -moz-calc(80% - 75px);
+    height: calc(80% - 75px);
     overflow: auto;
     width: 30%;
 }
@@ -243,9 +243,9 @@ div.tooltip {
     width: 80%;
 }
 .graphic canvas {
-    display: block;
-    height: 100%;
-    width: 100%;
+    display: inline;
+    height: 50%;
+    width: 50%;
 }
 
 .list-reset {

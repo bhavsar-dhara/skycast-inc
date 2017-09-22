@@ -34,6 +34,7 @@
         var infoWindow = undefined;
 
         this.myDate = new Date();
+        var showGraphDiv = document.getElementById('showGraph');
 
         function init() {
             GoogleMapService
@@ -206,6 +207,8 @@
             //         }
             //     );
 
+            showGraphDiv.style.display = 'none';
+
             ForecastService
                 .searchForecast(vm.lat, vm.lng)
                 .then(
@@ -226,11 +229,6 @@
         }
 
         function readForecastData(data) {
-
-            // $('#showGraph').html('');
-            // $scope.myDate = new Date();
-
-            // console.log("readForecastData()");
 
             // Hold our days of the week for reference later.
             var days = [
@@ -404,6 +402,8 @@
             if($scope.myDate !== undefined) {
 
                 $('#weatherDetails').html('');
+
+                showGraphDiv.style.display = 'inline';
 
                 // Hold our days of the week for reference later.
                 var days = [
