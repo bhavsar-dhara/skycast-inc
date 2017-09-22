@@ -274,3 +274,14 @@ div.tooltip {
     top: 85%;
     left: 35%;
 }
+
+.dashed {
+    stroke-dasharray: 5,5;
+}
+
+.nvd3.nv-scatter .nv-groups .nv-point.hover,
+.nvd3 .nv-groups .nv-point.hover {
+    stroke-width: 20px !important;
+    fill-opacity: .5 !important;
+    stroke-opacity: .5 !important;
+}

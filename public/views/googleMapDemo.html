@@ -2,7 +2,7 @@
 
     <div class="row">
 
-        <div id="col-xs-6 col-sm-4 col-md-4 weatherDetailsMap">
+        <div id="weatherDetailsMap">
 
             <input id="pac-input"
                    class="controls"
@@ -17,7 +17,7 @@
 
         </div>
 
-        <div class="col-xs-6 col-sm-4 col-md-4 eventList">
+        <div class="eventList">
             <ul ng-repeat="marker in ctrl.markers"
                 on-finish-render="ngRepeatFinished"
                 class="list-group">
@@ -47,7 +47,7 @@
         </div>
 
         <div id="showGraph">
-            <nvd3 options="options" data="data" config="config"></nvd3>
+            <nvd3 options="options" data="data" config="config" class="with-3d-shadow with-transitions"></nvd3>
         </div>
 
     </div>

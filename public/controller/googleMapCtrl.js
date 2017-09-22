@@ -436,6 +436,8 @@
                             bottom: 40,
                             left: 55
                         },
+                        color: d3.scale.category10().range(),
+                        duration: 500,
                         x: function (d) {
                             // return d3.time.format('%Y-%m-%d_%H:%M:%S').parse(d.x);
                             return d.x;
@@ -561,39 +563,47 @@
                                     friday !== null && saturday !== null) {
                                     $scope.data = [
                                         {
-                                            values: sunday,      //values - represents the array of {x,y} data points
-                                            key: 'Sun Temp', //key  - the name of the series.
-                                            color: '#ff7f0e'  //color - optional: choose your own line color.
+                                            type: 'line',
+                                            values: sunday,     //values - represents the array of {x,y} data points
+                                            key: 'Sun Temp',    //key  - the name of the series.
+                                            // color: '#ff7f0e',   //color - optional: choose your own line color.
+                                            // area: true          //area - set to true if you want this line to turn into a filled area chart.
                                         },
                                         {
+                                            type: 'line',
                                             values: monday,
-                                            key: 'Mon Temp',
-                                            color: '#2ca02c'
+                                            key: 'Mon Temp'
+                                            // , color: '#2ca02c'
                                         },
                                         {
+                                            type: 'line',
                                             values: tuesday,
-                                            key: 'Tues Temp',
-                                            color: '#7777ff'
+                                            key: 'Tues Temp'
+                                            // , color: '#7777ff'
                                         },
                                         {
-                                            values: wednesday,      //values - represents the array of {x,y} data points
-                                            key: 'Wed Temp', //key  - the name of the series.
-                                            color: '#ff2238'  //color - optional: choose your own line color.
+                                            type: 'line',
+                                            values: wednesday,
+                                            key: 'Wed Temp'
+                                            // , color: '#ff2238'
                                         },
                                         {
+                                            type: 'line',
                                             values: thursday,
-                                            key: 'Thurs Temp',
-                                            color: '#00a08f'
+                                            key: 'Thurs Temp'
+                                            // , color: '#00a08f'
                                         },
                                         {
+                                            type: 'line',
                                             values: friday,
-                                            key: 'Fri Temp',
-                                            color: '#cd05ff'
+                                            key: 'Fri Temp'
+                                            // , color: '#cd05ff'
                                         },
                                         {
-                                            values: saturday,      //values - represents the array of {x,y} data points
-                                            key: 'Sat Temp', //key  - the name of the series.
-                                            color: '#ffd300'  //color - optional: choose your own line color.
+                                            type: 'line',
+                                            values: saturday,
+                                            key: 'Sat Temp'
+                                            // , color: '#ffd300'
                                         }
                                     ];
                                 }
