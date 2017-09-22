@@ -88,16 +88,6 @@ body {
     left: 35%;
 }
 
-#showGraph {
-    position: absolute;
-    height: -webkit-calc(100% - 75px);
-    height: -moz-calc(100% - 75px);
-    height: calc(100% - 75px);
-    width: 30%;
-    top: 75px;
-    left: 35%;
-}
-
 .eventList {
     margin-top: 75px;
     background-color: white;
@@ -273,4 +263,14 @@ div.tooltip {
     top: 85%;
     left: 10px;
     margin: 8px 0 0;
+}
+
+#showGraph {
+    position: absolute;
+    height: -webkit-calc(100% - 75px);
+    height: -moz-calc(100% - 75px);
+    height: calc(100% - 75px);
+    width: 65%;
+    top: 85%;
+    left: 35%;
 }

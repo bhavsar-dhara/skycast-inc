@@ -379,6 +379,8 @@
 
         $scope.viewHistoricData = function () {
 
+            $('#weatherDetails').html('');
+
             if($scope.myDate !== undefined) {
                 var pastDate = Date.parse($scope.myDate.toDateString()) / 1000;
 
@@ -414,6 +416,7 @@
                             left: 55
                         },
                         x: function (d) {
+                            // return d3.time.format('%Y-%m-%d_%H:%M:%S').parse(d.x);
                             return d.x;
                         },
                         y: function (d) {
@@ -471,12 +474,12 @@
                     }
                 };
 
-                $scope.data = getData();
+                // $scope.data = getData();
                 // var resultData = [];
 
                 // $scope.$apply();
 
-                function getData() {
+                // function getData() {
                     ForecastService
                         .searchTimeMachine(vm.lat, vm.lng, pastDate)
                         .then(
@@ -484,12 +487,14 @@
                                 data = response.data;
                                 // console.log("data = " + JSON.stringify(data));
 
-                                $('#weatherDetails').html('');
+                                console.log("hours length = " + data.hourly.data.length);
 
                                 for (var j = 0, k = data.hourly.data.length; j < k; j++) {
                                     var hourly_date = new Date(data.hourly.data[j].time * 1000),
                                         hourly_day = days[hourly_date.getDay()],
                                         hourly_temp = data.hourly.data[j].temperature;
+
+                                    console.log(hourly_day);
 
                                     // push 24 hour forecast values to our empty days array
                                     switch (hourly_day) {
@@ -520,9 +525,9 @@
                                     }
                                 }
 
-                                // console.log("saturday = " + saturday);
+                                console.log("saturday = " + JSON.stringify(saturday));
 
-                                return [
+                                $scope.data = [
                                     {
                                         values: sunday,      //values - represents the array of {x,y} data points
                                         key: 'Sun Temp', //key  - the name of the series.
@@ -564,7 +569,7 @@
                                 console.error("Something went wrong fetching weather details..." + error);
                             }
                         )
-                }
+                // }
 
             } else {
                 alert("Please select a date");

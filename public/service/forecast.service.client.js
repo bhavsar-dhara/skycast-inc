@@ -37,6 +37,7 @@
                 .replace("LAT", latitude)
                 .replace("LONG", longitude)
                 .replace("DATE_MS", date);
+            console.log("url = " + url);
             return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
         }
     }
