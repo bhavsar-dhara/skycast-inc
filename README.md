@@ -1,4 +1,4 @@
-**SkyCast Inc Demo Application :sunny: :cloud: :umbrella: :snowflake: :zap: :cyclone: :foggy: **
+**SkyCast Inc Demo Application** :sunny: :cloud: :umbrella: :snowflake: :zap: :cyclone: :foggy:
 
 *BlueWolf Second Coding Challenge*
 
