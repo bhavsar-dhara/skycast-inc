@@ -564,45 +564,45 @@
                                     $scope.data = [
                                         {
                                             type: 'line',
-                                            values: sunday,     //values - represents the array of {x,y} data points
                                             key: 'Sun Temp',    //key  - the name of the series.
-                                            // color: '#ff7f0e',   //color - optional: choose your own line color.
-                                            // area: true          //area - set to true if you want this line to turn into a filled area chart.
+                                            values: sunday     //values - represents the array of {x,y} data points
+                                            //, color: '#ff7f0e'   //color - optional: choose your own line color.
+                                            //, area: true          //area - set to true if you want this line to turn into a filled area chart.
                                         },
                                         {
                                             type: 'line',
-                                            values: monday,
-                                            key: 'Mon Temp'
+                                            key: 'Mon Temp',
+                                            values: monday
                                             // , color: '#2ca02c'
                                         },
                                         {
                                             type: 'line',
-                                            values: tuesday,
-                                            key: 'Tues Temp'
+                                            key: 'Tues Temp',
+                                            values: tuesday
                                             // , color: '#7777ff'
                                         },
                                         {
                                             type: 'line',
-                                            values: wednesday,
-                                            key: 'Wed Temp'
+                                            key: 'Wed Temp',
+                                            values: wednesday
                                             // , color: '#ff2238'
                                         },
                                         {
                                             type: 'line',
-                                            values: thursday,
-                                            key: 'Thurs Temp'
+                                            key: 'Thurs Temp',
+                                            values: thursday
                                             // , color: '#00a08f'
                                         },
                                         {
                                             type: 'line',
-                                            values: friday,
-                                            key: 'Fri Temp'
+                                            key: 'Fri Temp',
+                                            values: friday
                                             // , color: '#cd05ff'
                                         },
                                         {
                                             type: 'line',
-                                            values: saturday,
-                                            key: 'Sat Temp'
+                                            key: 'Sat Temp',
+                                            values: saturday
                                             // , color: '#ffd300'
                                         }
                                     ];
